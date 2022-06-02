@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 /// <reference types="cypress-xpath" />
 
-import {fillUpRegistrationForm} from '../../steps/way2automation'
+import {fillUpRegistrationForm, waitFor7LiveProject} from '../../steps/way2automation'
 
 const config = require('../../fixtures/config.json')
 
 describe('LegalMatch Automation Exam', () => {
 
     beforeEach(() => {
-        // cy.viewport('macbook-16')
+        cy.viewport('macbook-16')
         cy.visit(config.url)
     })
 
@@ -25,25 +25,14 @@ describe('LegalMatch Automation Exam', () => {
 
         cy.contains('EXPLORE LIFETIME MEMBERSHIP').click({force: true})
 
-        // cy.get('.elementor-image-box-title').scrollIntoView().should('be.visible')
         cy.contains('30+ Courses video library FREE ACCESS').scrollIntoView().should('be.visible')
 
-        // cy.contains('30+ Courses video library FREE ACCESS')
-        //     .parents('section').next('section').find('.swiper-wrapper')
-        //     .each((el, index, $list) => {
-                
-        //         cy.get('h4').filter(':contains("Automation Architect Selenium with 7 live projects")').then(project => {
-        //             const isVisible = Cypress.dom.isVisible(project)
-        //             // cy.log(isVisible)
-        //             if (isVisible) {
-        //                 return false
-        //             } else {
-        //                 cy.get('div.swiper-button-next').scrollIntoView()
-        //                 cy.get('div.swiper-button-next').click()
-        //             }
-                    
-        //         })
-            // })
-        cy.contains('Automation Architect Selenium with 7 live projects', {timeout: 15000}).should('be.visible')
+        waitFor7LiveProject()
+
+        cy.get("h4").contains("Automation Architect Selenium with 7 live projects").parents('div.pp-info-box-title-wrap').next('.pp-info-box-footer').find('a').click()
+
+        cy.url().should('equal', "https://www.selenium-tutorial.com/p/automation-architect-in-selenium-7-live-projects")
+        
     })
 })
+

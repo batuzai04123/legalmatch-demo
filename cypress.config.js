@@ -1,6 +1,7 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  projectId: "i1tife",
   chromeWebSecurity: false,
   scrollBehavior: "nearest",
   e2e: {
