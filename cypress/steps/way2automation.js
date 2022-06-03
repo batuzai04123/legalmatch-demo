@@ -10,6 +10,10 @@ export const fillUpRegistrationForm = () => {
     cy.get('[name=password]').last().type(config.password)
 }
 
+/**
+ * Recursive function to continuously find 
+ * the Automation Architect Selenium with 7 live projects from carousel
+ */
 export const waitFor7LiveProject = () => {
     cy.get("h4").contains("Automation Architect Selenium with 7 live projects").then(($proj) => {
         if ($proj.is(':visible')) {
@@ -19,4 +23,14 @@ export const waitFor7LiveProject = () => {
         cy.get('div.swiper-button-prev').click({force: true})
         waitFor7LiveProject()
     })
+}
+
+export const clickOnEveryTextInput = () => {
+    clickandCheck('email')
+}
+
+const clickandCheck = (selector) => {
+    cy.get(`#${selector}`).click()
+    cy.get('span').contains('Contact Information').click()
+    cy.get(`#${selector}`).parent().next().find('span').contains('Cannot be blank')
 }
